@@ -4,10 +4,9 @@ CXXFLAGS = -O3 -Wall -Wstrict-aliasing=0 -I. -std=c++0x
 LDFLAGS = -lpthread
 OBJS = main.o CPusherThread.o CProcessorThread.o
 AOUT = OPRAPacketMon
-UTILS = server readtest
 
-all: $(OBJS) $(UTILS)
+all: $(OBJS)
 	$(CXX) -o $(AOUT) $(OBJS) $(LDFLAGS)
 
 clean:
-	$(RM) $(OBJS) $(AOUT) $(UTILS)
+	$(RM) $(OBJS) $(AOUT)
