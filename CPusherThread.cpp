@@ -112,6 +112,13 @@ CPusherThread::CPusherThread()
 		dismiss();
 		return;
 	}
+	k = 1;
+	if(setsockopt(m_sd, SOL_SOCKET, SO_REUSEADDR, &k, sizeof(k)) < 0) {
+		perror("CPusherThread: setsockopt SO_REUSEADDR");
+		close(m_sd);
+		dismiss();
+		return;
+	}
 	mreq.imr_multiaddr.s_addr = inet_addr(m_group.c_str());	// OPRA_GROUP      
 	mreq.imr_interface.s_addr = inet_addr(m_ifnet.c_str());	// htonl(IF_ADDRESS);
 	if (setsockopt(m_sd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) < 0) {
